@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    public UserDaoJDBCImpl() {
-
-    }
 
     public void createUsersTable() {
         try (Connection connection = Util.getConnection(); Statement statement = connection.createStatement()) {
@@ -32,11 +29,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-//        try (Connection connection = Util.getConnection();
-//            PreparedStatement statement = connection.prepareStatement("INSERT INTO Malik (name, lastname, age) " +
-//                    "VALUES('" + name + "', '" + lastName + "','" + age + "' )")) {
-//            statement.executeUpdate();
-
         try (Connection connection = Util.getConnection(); PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO base (name, lastname, age) VALUES(?,?,?)")) {
             statement.setString(1, name);
