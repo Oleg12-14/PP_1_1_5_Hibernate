@@ -6,15 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.swing.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
 
-    Transaction transaction;
+    private Transaction transaction;
 
-    SessionFactory sessionFactory = Util.getSessionFactory();
+    private final SessionFactory sessionFactory = Util.getSessionFactory();
 
     public UserDaoHibernateImpl() {
 
@@ -25,7 +24,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE IF NOT EXISTS student (id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS users (id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
                             "name VARCHAR(45), lastname VARCHAR(64), age TINYINT);")
                     .executeUpdate();
             transaction.commit();
@@ -43,7 +42,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.createSQLQuery("DROP TABLE IF EXISTS student")
+            session.createSQLQuery("DROP TABLE IF EXISTS users")
                     .executeUpdate();
             transaction.commit();
         } catch (Exception e) {
